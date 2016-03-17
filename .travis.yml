@@ -1,8 +1,12 @@
 sudo: false
-language: node_js
-node_js:
-  - 5
+language: objective-c # test on OSX
 env:
   global:
+    - NODE_VERSION=5
     - CC=clang
     - CXX=clang++
+install:
+  - nvm install $NODE_VERSION
+  - npm install
+script:
+  - npm test
