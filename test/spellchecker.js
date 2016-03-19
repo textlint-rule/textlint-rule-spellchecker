@@ -7,6 +7,8 @@ tester.run('spellchecker', rule, {
   valid: [
     'Hello, world!',
     'This sentence contains no mistakes.',
+    'This link contains an [errror](index.html), but it should be ignored.',
+    'Misspellings in an inline code should be `ignord`.',
   ],
   invalid: [
     {

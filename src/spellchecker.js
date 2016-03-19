@@ -1,23 +1,48 @@
 import { RuleHelper } from 'textlint-rule-helper';
 import SpellChecker from 'spellchecker';
+import StringSource from 'textlint-util-to-string';
+import filter from 'unist-util-filter';
+
+function getPlainText({ node, context }) {
+  const { Syntax } = context;
+  const helper = new RuleHelper(context);
+
+  if (helper.isChildNode(node, [
+    Syntax.Link,
+    Syntax.Image,
+    Syntax.BlockQuote,
+    Syntax.Emphasis,
+  ])) {
+    return '';
+  }
+
+  const filteredNode = filter(node, (n) =>
+    n.type !== Syntax.Code && n.type !== Syntax.Link
+  );
+
+  if (!filteredNode) {
+    return '';
+  }
+
+  return (new StringSource(filteredNode)).toString();
+}
 
 function reporter(context) {
   const {
     Syntax,
-    getSource,
     report,
     RuleError,
     fixer,
   } = context;
-  const helper = new RuleHelper(context);
 
   return {
     [Syntax.Paragraph](node) {
-      if (helper.isChildNode(node, [Syntax.BlockQuote])) {
+      const text = getPlainText({ node, context });
+
+      if (!text) {
         return;
       }
 
-      const text = getSource(node);
       const misspelledCharacterRanges = SpellChecker.checkSpelling(text);
 
       misspelledCharacterRanges.forEach((range) => {
