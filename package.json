@@ -26,7 +26,7 @@
   "homepage": "https://github.com/nodaguti/textlint-rule-spellchecker",
   "repository": "nodaguti/textlint-rule-spellchecker",
   "dependencies": {
-    "npm-run-all": "^1.5.3",
+    "npm-run-all": "^1.6.0",
     "spellchecker": "^3.2.3",
     "textlint-rule-helper": "^1.1.5",
     "textlint-util-to-string": "^1.2.0",

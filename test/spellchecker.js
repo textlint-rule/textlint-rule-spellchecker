@@ -29,7 +29,7 @@ tester.run('spellchecker', rule, {
         {
           message: 'errror -> error',
           line: 1,
-          column: 41,
+          column: 38,
         },
       ],
     },
