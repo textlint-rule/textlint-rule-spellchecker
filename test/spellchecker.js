@@ -8,7 +8,7 @@ tester.run('spellchecker', rule, {
     'Hello, world!',
     'This sentence contains no mistakes.',
     'This link contains an [errror](index.html), but it should be ignored.',
-    'Misspellings in an inline code should be `ignord`.',
+    'Misspellings in inline code should be `ignord`.',
   ],
   invalid: [
     {
@@ -19,6 +19,17 @@ tester.run('spellchecker', rule, {
           message: 'errror -> error',
           line: 1,
           column: 27,
+        },
+      ],
+    },
+    {
+      text: 'This sentence contains `code` and an errror.',
+      output: 'This sentence contains `code` and an error.',
+      errors: [
+        {
+          message: 'errror -> error',
+          line: 1,
+          column: 41,
         },
       ],
     },

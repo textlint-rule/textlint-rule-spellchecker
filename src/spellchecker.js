@@ -3,7 +3,14 @@ import SpellChecker from 'spellchecker';
 import StringSource from 'textlint-util-to-string';
 import filter from 'unist-util-filter';
 
-function getPlainText({ node, context }) {
+/**
+ * Exclude inappropriate parts of text from linting,
+ * such as link texts, image captions, blockquotes, emphasized texts and inline code.
+ * @param {TxtNode} node
+ * @param {TextLintContext} context
+ * @return {{ source: StringSource, text: string }}
+ */
+function filterNode({ node, context }) {
   const { Syntax } = context;
   const helper = new RuleHelper(context);
 
@@ -13,18 +20,22 @@ function getPlainText({ node, context }) {
     Syntax.BlockQuote,
     Syntax.Emphasis,
   ])) {
-    return '';
+    return null;
   }
 
   const filteredNode = filter(node, (n) =>
-    n.type !== Syntax.Code && n.type !== Syntax.Link
+    n.type !== Syntax.Code &&
+    n.type !== Syntax.Link
   );
 
   if (!filteredNode) {
-    return '';
+    return null;
   }
 
-  return (new StringSource(filteredNode)).toString();
+  const source = new StringSource(filteredNode);
+  const text = source.toString();
+
+  return { source, text };
 }
 
 function reporter(context) {
@@ -37,26 +48,35 @@ function reporter(context) {
 
   return {
     [Syntax.Paragraph](node) {
-      const text = getPlainText({ node, context });
+      const { source, text } = filterNode({ node, context }) || {};
 
-      if (!text) {
+      if (!source || !text) {
         return;
       }
 
       const misspelledCharacterRanges = SpellChecker.checkSpelling(text);
 
       misspelledCharacterRanges.forEach((range) => {
-        const index = range.start;
         const misspelled = text.slice(range.start, range.end);
         const corrections = SpellChecker.getCorrectionsForMisspelling(misspelled);
+        const originalPosition = source.originalPositionFromIndex(range.start);
         let fix;
 
         if (corrections.length === 1) {
-          fix = fixer.replaceTextRange([range.start, range.end], corrections[0]);
+          const originalRange = [
+            originalPosition.column,
+            originalPosition.column + (range.end - range.start),
+          ];
+
+          fix = fixer.replaceTextRange(originalRange, corrections[0]);
         }
 
         const message = `${misspelled} -> ${corrections.join(', ')}`;
-        report(node, new RuleError(message, { index, fix }));
+        report(node, new RuleError(message, {
+          line: originalPosition.line - 1,
+          column: originalPosition.column,
+          fix,
+        }));
       });
     },
   };
