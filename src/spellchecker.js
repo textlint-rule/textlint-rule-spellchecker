@@ -1,8 +1,8 @@
-import { RuleHelper, IgnoreNodeManger } from 'textlint-rule-helper';
+import { RuleHelper, IgnoreNodeManager } from 'textlint-rule-helper';
 import SpellChecker from 'spellchecker';
 import StringSource from 'textlint-util-to-string';
 
-const ignoreNodeManager = new IgnoreNodeManger();
+const ignoreNodeManager = new IgnoreNodeManager();
 
 /**
  * Exclude inappropriate parts of text from linting,
