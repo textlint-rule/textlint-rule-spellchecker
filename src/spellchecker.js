@@ -1,7 +1,8 @@
-import { RuleHelper } from 'textlint-rule-helper';
+import { RuleHelper, IgnoreNodeManger } from 'textlint-rule-helper';
 import SpellChecker from 'spellchecker';
 import StringSource from 'textlint-util-to-string';
-import filter from 'unist-util-filter';
+
+const ignoreNodeManager = new IgnoreNodeManger();
 
 /**
  * Exclude inappropriate parts of text from linting,
@@ -23,16 +24,9 @@ function filterNode({ node, context }) {
     return null;
   }
 
-  const filteredNode = filter(node, (n) =>
-    n.type !== Syntax.Code &&
-    n.type !== Syntax.Link
-  );
+  ignoreNodeManager.ignoreChildrenByTypes(node, [Syntax.Code, Syntax.Link]);
 
-  if (!filteredNode) {
-    return null;
-  }
-
-  const source = new StringSource(filteredNode);
+  const source = new StringSource(node);
   const text = source.toString();
 
   return { source, text };
@@ -57,17 +51,22 @@ function reporter(context) {
       const misspelledCharacterRanges = SpellChecker.checkSpelling(text);
 
       misspelledCharacterRanges.forEach((range) => {
+        const originalPosition = source.originalPositionFromIndex(range.start);
+        const originalRange = [
+          originalPosition.column,
+          originalPosition.column + (range.end - range.start),
+        ];
+
+        // if range is ignored, not report
+        if (ignoreNodeManager.isIgnoredRange(originalRange)) {
+          return;
+        }
+
         const misspelled = text.slice(range.start, range.end);
         const corrections = SpellChecker.getCorrectionsForMisspelling(misspelled);
-        const originalPosition = source.originalPositionFromIndex(range.start);
         let fix;
 
         if (corrections.length === 1) {
-          const originalRange = [
-            originalPosition.column,
-            originalPosition.column + (range.end - range.start),
-          ];
-
           fix = fixer.replaceTextRange(originalRange, corrections[0]);
         }
 
