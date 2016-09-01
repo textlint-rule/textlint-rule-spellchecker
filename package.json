@@ -28,7 +28,7 @@
   "dependencies": {
     "spellchecker": "^3.3.1",
     "textlint-rule-helper": "^2.0.0",
-    "textlint-util-to-string": "^1.2.1"
+    "textlint-util-to-string": "^2.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
