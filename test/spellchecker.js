@@ -1,5 +1,5 @@
-import rule from '../src/spellchecker';
 import TextlintTester from 'textlint-tester';
+import rule from '../src/spellchecker';
 
 const tester = new TextlintTester();
 
