@@ -1,6 +1,6 @@
 {
   "name": "textlint-rule-spellchecker",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "textlint rule to check spellings with native spellchecker (NSSpellChecker, Hunspell, or the Windows 8 Spell Check API)",
   "engines": {
     "node": ">=6"
