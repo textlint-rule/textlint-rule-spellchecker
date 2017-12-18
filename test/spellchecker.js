@@ -9,6 +9,20 @@ tester.run('spellchecker', rule, {
     'This sentence contains no mistakes.',
     'This link contains an [errror](index.html), but it should be ignored.',
     'Misspellings in inline code should be `ignord`.',
+    {
+      text:
+        "This sentence contains an errror, but it's in the `skipWords` list",
+      options: {
+        skipWords: ['errror'],
+      },
+    },
+    {
+      text:
+        "This sentence contains an errror, but it's in the `skipRegExps` list",
+      options: {
+        skipRegExps: ['er+or'],
+      },
+    },
   ],
   invalid: [
     {
@@ -30,6 +44,22 @@ tester.run('spellchecker', rule, {
           message: 'errror -> error',
           line: 1,
           column: 38,
+        },
+      ],
+    },
+    {
+      text:
+        'This link contains an [errror](index.html) and should be reported.',
+      output:
+        'This link contains an [error](index.html) and should be reported.',
+      options: {
+        skipNodeTypes: [],
+      },
+      errors: [
+        {
+          message: 'errror -> error',
+          line: 1,
+          column: 24,
         },
       ],
     },

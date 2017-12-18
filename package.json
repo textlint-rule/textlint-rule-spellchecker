@@ -24,6 +24,7 @@
   "homepage": "https://github.com/nodaguti/textlint-rule-spellchecker",
   "repository": "nodaguti/textlint-rule-spellchecker",
   "dependencies": {
+    "@textlint/ast-node-types": "^2.0.0",
     "spellchecker": "^3.4.4",
     "textlint-rule-helper": "^2.0.0",
     "textlint-util-to-string": "^2.1.1"
