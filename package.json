@@ -20,9 +20,9 @@
   "keywords": ["textlint", "rule", "english", "spellchecker"],
   "author": "nodaguti",
   "license": "MIT",
-  "bugs": "https://github.com/nodaguti/textlint-rule-spellchecker/issues",
-  "homepage": "https://github.com/nodaguti/textlint-rule-spellchecker",
-  "repository": "nodaguti/textlint-rule-spellchecker",
+  "bugs": "https://github.com/textlint-rule/textlint-rule-spellchecker/issues",
+  "homepage": "https://github.com/textlint-rule/textlint-rule-spellchecker",
+  "repository": "textlint-rule/textlint-rule-spellchecker",
   "dependencies": {
     "@textlint/ast-node-types": "^2.0.0",
     "spellchecker": "^3.4.4",
