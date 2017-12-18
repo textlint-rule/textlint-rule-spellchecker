@@ -5,18 +5,17 @@
 [![Dependency Status](https://david-dm.org/nodaguti/textlint-rule-spellchecker.svg)](https://david-dm.org/nodaguti/textlint-rule-spellchecker)
 [![devDependency Status](https://david-dm.org/nodaguti/textlint-rule-spellchecker/dev-status.svg)](https://david-dm.org/nodaguti/textlint-rule-spellchecker#info=devDependencies)
 
-[textlint](https://github.com/textlint/textlint) rule
-to check spellings with native spellchecker, i.e. [NSSpellChecker](https://developer.apple.com/library/mac/#documentation/cocoa/reference/ApplicationKit/Classes/NSSpellChecker_Class/Reference/Reference.html), [Hunspell](http://hunspell.sourceforge.net/), or the [Windows 8 Spell Check API](https://msdn.microsoft.com/en-us/library/windows/desktop/hh869853(v=vs.85).aspx), depending on your platform.
+A [textlint](https://github.com/textlint/textlint) rule
+to check spellings with an available native spellchecker, i.e. [NSSpellChecker](https://developer.apple.com/library/mac/#documentation/cocoa/reference/ApplicationKit/Classes/NSSpellChecker_Class/Reference/Reference.html), [Hunspell](http://hunspell.sourceforge.net/), or the [Windows 8 Spell Check API](https://msdn.microsoft.com/en-us/library/windows/desktop/hh869853(v=vs.85).aspx), depending on your platform.
 
 ## Installation
 ```
-$ npm install textlint-rule-spellchecker
+$ yarn add textlint textlint-rule-spellchecker
 ```
 
 ## Usage
 ```
-$ npm install textlint textlint-rule-spellchecker
-$ textlint --rule textlint-rule-spellchecker text-to-spellcheck.txt
+$ yarn run textlint --rule textlint-rule-spellchecker text-to-spellcheck.txt
 ```
 
 ## Notes
