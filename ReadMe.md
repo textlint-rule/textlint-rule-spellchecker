@@ -6,22 +6,26 @@
 [![devDependency Status](https://david-dm.org/nodaguti/textlint-rule-spellchecker/dev-status.svg)](https://david-dm.org/nodaguti/textlint-rule-spellchecker#info=devDependencies)
 
 A [textlint](https://github.com/textlint/textlint) rule
-to check spellings with an available native spellchecker, i.e. [NSSpellChecker](https://developer.apple.com/library/mac/#documentation/cocoa/reference/ApplicationKit/Classes/NSSpellChecker_Class/Reference/Reference.html), [Hunspell](http://hunspell.sourceforge.net/), or the [Windows 8 Spell Check API](https://msdn.microsoft.com/en-us/library/windows/desktop/hh869853(v=vs.85).aspx), depending on your platform.
+to check spellings with an available native spellchecker, i.e. [NSSpellChecker](https://developer.apple.com/library/mac/#documentation/cocoa/reference/ApplicationKit/Classes/NSSpellChecker_Class/Reference/Reference.html), [Hunspell](http://hunspell.sourceforge.net/), or the [Windows 8 Spell Check API](<https://msdn.microsoft.com/en-us/library/windows/desktop/hh869853(v=vs.85).aspx>), depending on your platform.
 
 ## Installation
+
 ```
 $ yarn add textlint textlint-rule-spellchecker
 ```
 
 ## Usage
+
 ```
 $ yarn run textlint --rule textlint-rule-spellchecker text-to-spellcheck.txt
 ```
 
 ## Notes
+
 To ignore specific words, please add them to the dictionary in your computer.
 
 ## Tests
+
 ```
 npm test
 ```

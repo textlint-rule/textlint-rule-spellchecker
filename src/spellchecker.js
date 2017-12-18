@@ -15,12 +15,14 @@ function filterNode({ node, context }) {
   const { Syntax } = context;
   const helper = new RuleHelper(context);
 
-  if (helper.isChildNode(node, [
-    Syntax.Link,
-    Syntax.Image,
-    Syntax.BlockQuote,
-    Syntax.Emphasis,
-  ])) {
+  if (
+    helper.isChildNode(node, [
+      Syntax.Link,
+      Syntax.Image,
+      Syntax.BlockQuote,
+      Syntax.Emphasis,
+    ])
+  ) {
     return null;
   }
 
@@ -33,12 +35,7 @@ function filterNode({ node, context }) {
 }
 
 function reporter(context) {
-  const {
-    Syntax,
-    report,
-    RuleError,
-    fixer,
-  } = context;
+  const { Syntax, report, RuleError, fixer } = context;
 
   return {
     [Syntax.Paragraph](node) {
@@ -63,7 +60,9 @@ function reporter(context) {
         }
 
         const misspelled = text.slice(range.start, range.end);
-        const corrections = SpellChecker.getCorrectionsForMisspelling(misspelled);
+        const corrections = SpellChecker.getCorrectionsForMisspelling(
+          misspelled,
+        );
         let fix;
 
         if (corrections.length === 1) {
@@ -71,11 +70,14 @@ function reporter(context) {
         }
 
         const message = `${misspelled} -> ${corrections.join(', ')}`;
-        report(node, new RuleError(message, {
-          line: originalPosition.line - 1,
-          column: originalPosition.column,
-          fix,
-        }));
+        report(
+          node,
+          new RuleError(message, {
+            line: originalPosition.line - 1,
+            column: originalPosition.column,
+            fix,
+          }),
+        );
       });
     },
   };
