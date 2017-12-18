@@ -21,9 +21,54 @@ $ yarn add textlint textlint-rule-spellchecker
 $ yarn run textlint --rule textlint-rule-spellchecker text-to-spellcheck.txt
 ```
 
-## Notes
+## Ignoring Words
 
-To ignore specific words, please add them to the dictionary in your computer.
+### Global Settings
+
+As this rule uses the native spellchecker in your computer, you can ignore specific words by adding them to your computer's/IME's dictionary.
+
+### Per-project Settings
+
+You can also prevent some words from being spellchecked by writing configurations in `.textlintrc` like:
+
+```
+{
+  "rules": {
+    "spellchecker": {
+      skipWords: ['JavaScript', 'ECMAScript'],
+      skipRegExps: ['(?:[a-z]+)Script'],
+      skipNodeTypes: ['Comment'],
+    }
+  }
+}
+```
+
+#### skipWords
+
+Default: `[]`
+
+Words in the `skipWords` list will not be checked and put no errors.
+
+#### skipRegExps
+
+Default: `[]`
+
+Words that match with one of the regular expressions in `skipRegExps` are ignored.
+Please note that they should be specified as an array of _string_, not `RegExp` object, and thus you need to do some extra escaping when using `\`.
+
+#### skipNodeTypes
+
+Default: `['Link', 'Image', 'BlockQuote', 'Emphasis', 'Code']`
+
+textlint traverses an [TxtAST tree](https://github.com/textlint/textlint/blob/master/docs/txtnode.md) while linting the input text.
+
+This option changes which types of node should be skipped from the spellchecks. Any texts under an ignored node will not be checked.
+
+By default, links, images, blockquotes, emphasised texts and code blocks are ignored.
+
+The valid node types are defined in [`@textlint/ast-node-types`](https://github.com/textlint/textlint/blob/master/docs/txtnode.md#type) and you should pass them as a string to this option.
+
+Please note that adding this option **overrides** the default behaviour so if you want to add another node type, you must redefine all types in the default settings.
 
 ## Tests
 
