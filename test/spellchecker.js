@@ -10,6 +10,10 @@ tester.run('spellchecker', rule, {
     'This link contains an [errror](index.html), but it should be ignored.',
     'Misspellings in inline code should be `ignord`.',
     {
+      text: 'This sentence contains no mistakes in a plain text.',
+      ext: '.txt',
+    },
+    {
       text:
         "This sentence contains an errror, but it's in the `skipWords` list",
       options: {
@@ -28,6 +32,18 @@ tester.run('spellchecker', rule, {
     {
       text: 'This sentence contains an errror.',
       output: 'This sentence contains an error.',
+      errors: [
+        {
+          message: 'errror -> error',
+          line: 1,
+          column: 27,
+        },
+      ],
+    },
+    {
+      text: 'This sentence contains an errror in a plain text.',
+      output: 'This sentence contains an error in a plain text.',
+      ext: '.txt',
       errors: [
         {
           message: 'errror -> error',
