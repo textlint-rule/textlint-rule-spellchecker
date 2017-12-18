@@ -1,6 +1,7 @@
 # textlint-rule-spellchecker
 
 [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/)
+[![npm](https://img.shields.io/npm/v/textlint-rule-spellchecker.svg)](https://www.npmjs.com/package/textlint-rule-spellchecker)
 [![Build Status](https://travis-ci.org/nodaguti/textlint-rule-spellchecker.svg?branch=master)](https://travis-ci.org/nodaguti/textlint-rule-spellchecker)
 [![Dependency Status](https://david-dm.org/nodaguti/textlint-rule-spellchecker.svg)](https://david-dm.org/nodaguti/textlint-rule-spellchecker)
 [![devDependency Status](https://david-dm.org/nodaguti/textlint-rule-spellchecker/dev-status.svg)](https://david-dm.org/nodaguti/textlint-rule-spellchecker#info=devDependencies)
