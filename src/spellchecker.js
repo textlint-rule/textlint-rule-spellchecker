@@ -41,7 +41,6 @@ function reporter(context, options = {}) {
     }
 
     const source = new StringSource(node);
-    const nodeStart = node.range[0];
     const text = source.toString();
 
     return { source, text };
@@ -58,6 +57,7 @@ function reporter(context, options = {}) {
       const misspelledCharacterRanges = SpellChecker.checkSpelling(text);
 
       misspelledCharacterRanges.forEach((range) => {
+        const nodeStart = node.range[0];
         const originalPosition = source.originalPositionFromIndex(range.start);
         const originalRange = [
           nodeStart + originalPosition.column,
