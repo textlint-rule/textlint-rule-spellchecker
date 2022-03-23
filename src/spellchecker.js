@@ -41,6 +41,7 @@ function reporter(context, options = {}) {
     }
 
     const source = new StringSource(node);
+    const nodeStart = node.range[0];
     const text = source.toString();
 
     return { source, text };
@@ -59,8 +60,8 @@ function reporter(context, options = {}) {
       misspelledCharacterRanges.forEach((range) => {
         const originalPosition = source.originalPositionFromIndex(range.start);
         const originalRange = [
-          originalPosition.column,
-          originalPosition.column + (range.end - range.start),
+          nodeStart + originalPosition.column,
+          nodeStart + originalPosition.column + (range.end - range.start),
         ];
 
         // if range is ignored, not report
