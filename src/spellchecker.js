@@ -57,10 +57,11 @@ function reporter(context, options = {}) {
       const misspelledCharacterRanges = SpellChecker.checkSpelling(text);
 
       misspelledCharacterRanges.forEach((range) => {
+        const nodeStart = node.range[0];
         const originalPosition = source.originalPositionFromIndex(range.start);
         const originalRange = [
-          originalPosition.column,
-          originalPosition.column + (range.end - range.start),
+          nodeStart + originalPosition.column,
+          nodeStart + originalPosition.column + (range.end - range.start),
         ];
 
         // if range is ignored, not report

@@ -79,5 +79,15 @@ tester.run('spellchecker', rule, {
         },
       ],
     },
+    {
+      text:
+        'This link contains an [errror](index.html) and should not be reported.',
+      output:
+        'This link contains an [errror](index.html) and should not be reported.',
+      options: {
+        skipNodeTypes: ['Link'],
+      },
+      errors: [],
+    },
   ],
 });
